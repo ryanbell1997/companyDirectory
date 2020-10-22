@@ -1,0 +1,65 @@
+/*Filter div styles*/
+.filterDiv {
+    width: 80%;
+    margin: 1em auto;
+    background-color: #d4d4d4;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0px;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 0.6em;
+}
+
+.filterSelect {
+    padding: 0.4em;
+}
+
+.filterHeader {
+    padding-top: 0.2em;
+    text-align: center;
+    color: #545454;
+}
+
+.resetText {
+    width: 20%;
+    text-decoration: underline;
+    color: #5181db;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    right: 40%;
+    left: 40%;
+}
+
+/*Top bar styles */
+.topBar {
+    background: rgb(167,189,255);
+    background: linear-gradient(180deg, rgba(167,189,255,1) 22%, rgba(112,149,255,1) 47%, rgba(115,111,255,1) 75%, rgba(98,98,255,1) 100%);
+    box-shadow: 0px 2px 10px 2px;
+}
+
+.topBarHeader {
+    font-size: 140%;
+    color: #f5f7ff;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-shadow: 0px 3px slategray;
+}
+
+.input-group {
+    float: right;
+}
+
+label {
+    color: black;
+}
+
+/* Table coloring */
+th {
+    background-color: #5181db; 
+    color: white;
+}
