@@ -12,9 +12,9 @@
 
 	include("config.php");
 
-	header('Content-Type:application/json; charset=UTF-8');
+	header('Content-Type: application/json;charset=UTF-8');
 
-	$conn = new mysqli($host_name, $user_name, $password,  $database, $port);
+	$conn = new mysqli($host_name, $user_name, $password, $database, $port, $socket);
 
 	if ($conn->connect_error) {
 		die('<p>Failed to connect to MySQL: '. $conn->connect_error .'</p>');
