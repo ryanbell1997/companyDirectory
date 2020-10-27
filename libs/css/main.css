@@ -7,6 +7,17 @@
     box-shadow: 0px 0px 5px 0px;
 }
 
+.fDiv {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filterLabel {
+    margin: 0px 0.5em 0px 0px;
+}
+
 .filters {
     display: flex;
     justify-content: space-around;
@@ -16,6 +27,7 @@
 
 .filterSelect {
     padding: 0.4em;
+    width: 50%;
 }
 
 .filterHeader {
@@ -40,6 +52,11 @@
     background: rgb(167,189,255);
     background: linear-gradient(180deg, rgba(167,189,255,1) 22%, rgba(112,149,255,1) 47%, rgba(115,111,255,1) 75%, rgba(98,98,255,1) 100%);
     box-shadow: 0px 2px 10px 2px;
+    display: flex;
+}
+
+.searchBar {
+    width: auto;    
 }
 
 .topBarHeader {
@@ -48,6 +65,7 @@
     font-weight: bold;
     letter-spacing: 5px;
     text-shadow: 0px 3px slategray;
+    width: 80%;
 }
 
 .input-group {
@@ -62,4 +80,137 @@ label {
 th {
     background-color: #5181db; 
     color: white;
+}
+
+/* Action button styles */
+.editButton {
+    background-color: yellow;
+    color: darkslategray;
+    border-radius: 50%;
+    padding: 4px;
+    text-align: center;
+}
+
+.buttonContainer {
+    padding: 3px;
+    text-align: center;
+}
+
+.deleteButton {
+    background-color: #ff4554;
+    color: darkslategray;
+    border-radius: 50%;
+    padding: 4px;
+
+}
+
+.emailButton {
+    background-color: #32cbed;
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 80%;
+    margin-left: 1em;
+}
+
+.tableHeaderDiv {
+    display: flex;
+    align-items: center;    
+}
+
+#directoryTableTitle {
+    display: inline;
+    width: 95%;
+    text-align: left;
+    font-size: 150%;
+    padding-left: 0.5em;
+}
+
+#addButton {
+    display: inline;
+    flex-grow: 1;   
+    background-color: green;
+    color: whitesmoke;
+    font-weight: bold;
+    padding: 0.35em;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+#tick {
+    color: white;
+    font-size: 90%;
+}
+
+#cross {
+    color: white;
+    font-size: 90%;
+}
+
+#completeButton {
+    background-color: green!important;
+}
+
+#addButton:hover {
+    cursor: pointer;
+}
+
+#actionsHeader {
+    text-align: center;
+}
+
+
+/* Form styles*/
+
+.formContainer {
+    display: grid;
+    grid-template-columns: 30% 50%;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    row-gap: 1rem;
+}
+
+@media only screen and (max-width: 480px){
+    .formContainer {
+        grid-template-columns: 30% 70%;
+    }
+}
+
+.formLabel {
+    padding-right: 0.4em;
+    text-align: right;
+}
+
+#successText {
+    text-align: center;
+    font-weight: bold;
+    font-size: 140%;
+}
+
+#successModalSymbol {
+    text-align: center;
+    font-size: 400%;
+    color: green;
+    display: block;
+}
+
+#errorText {
+    text-align: center;
+    font-weight: bold;
+    font-size: 140%;
+
+}
+
+#errorModalSymbol {
+    text-align: center;
+    font-size: 400%;
+    color: #ff4554;
+    display: block
+}
+
+#noButton, #yesButton #errorModal, #successModal, #employeeForm {
+    display: none;
+}
+
+.editCell, .deleteCell {
+    cursor: pointer;
 }

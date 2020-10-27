@@ -16,12 +16,6 @@
 
 	$conn = new mysqli($host_name, $user_name, $password, $database, $port, $socket);
 
-	if ($conn->connect_error) {
-		die('<p>Failed to connect to MySQL: '. $conn->connect_error .'</p>');
-	  } else {
-		echo '<p>Connection to MySQL server successfully established.</p>';
-	  }
-
 	if (mysqli_connect_errno()) {
 		
 		$output['status']['code'] = "300";
@@ -38,7 +32,7 @@
 
 	}	
 
-	$query = 'SELECT p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) ORDER BY p.lastName, p.firstName, d.name, l.name';
+	$query = 'SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) ORDER BY p.id, p.lastName, p.firstName, d.name, l.name';
 
 	$result = $conn->query($query);
 	

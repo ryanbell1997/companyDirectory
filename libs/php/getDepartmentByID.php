@@ -13,7 +13,7 @@
 
 	include("config.php");
 
-	$conn = new mysqli($host_name, $user_name, $port, $password, $database);
+	$conn = new mysqli($host_name, $user_name, $password, $database, $port, $socket);
 
 	if (mysqli_connect_errno()) {
 		
@@ -35,7 +35,7 @@
 
 	$query = 'SELECT id, name, locationID FROM department WHERE id = ' . $_REQUEST['id'];
 
-	$result = $conn->query($query);
+	$result = $conn->query($query); 
 	
 	if (!$result) {
 
