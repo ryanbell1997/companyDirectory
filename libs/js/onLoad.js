@@ -79,7 +79,6 @@ $(document).ready(() => {
     }
 
     function DepartmentFilters(){
-
         $.ajax({
             url: "libs/php/getAllDepartments.php",
             type: "GET",
@@ -88,6 +87,7 @@ $(document).ready(() => {
                 success: (result) => {
                     setLJSON("departmentInfo", result);
                     $('#departmentSettingsList').html('');
+                    $('#departmentInput').html('');
                     for(let i = 0; i < result['data'].length; i++){
                         var option = `<option value=${result['data'][i]['id']}>${result['data'][i]['name']}</option>`
                         var input = `<div class="departmentInput"><li>${result['data'][i]['name']}</li><button class="btn btn-warning settingsButtons editDepartmentButton"id=${result['data'][i]['id']}><i class="material-icons">edit</i></button><button class="btn btn-danger settingsButtons deleteDepartmentButton" id=${result['data'][i]['id']}><i class="material-icons">delete</i></button></div>`;
@@ -247,6 +247,7 @@ $(document).ready(() => {
                     $('#employeeForm').hide();
                     $('#successModal').show();
                     $('formButton').hide();
+                    GetRows();
                     setTimeout(() => {
                         $('.modal').fadeToggle();
                     }, 2500);
