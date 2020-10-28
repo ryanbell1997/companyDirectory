@@ -15,7 +15,7 @@
 
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$conn = new mysqli($host_name, $user_name, $port, $password, $database);
+	$conn = new mysqli($host_name, $user_name, $password, $database, $port, $socket);
 
 	if (mysqli_connect_errno()) {
 		

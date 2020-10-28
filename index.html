@@ -37,7 +37,7 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow topBar">
           <div class="mx-3 topBarHeader">Company Directory</div>
-
+          <div><button class="btn btn-light settingsButton"><i class="material-icons settingsCog" id="settingsCog">settings</i></button></div>
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline ml-md-3 my-2 my-md-0 mw-100 navbar-search searchBar">
             <div class="input-group">
@@ -80,6 +80,39 @@
                       <input type="email" id="emailInput" name="emailInput" placeholder="joe@bloggs.com">
                     </form>
                   </div>
+                  
+                  <div id="settingsModal">
+                    <div id="settingsButtons">
+                      <button class="btn btn-secondary" id="departmentSettingsButton">Amend Departments</button>
+                      <button class="btn btn-secondary" id="locationSettingsButton">Amend Locations</button>
+                    </div>
+                  </div>
+
+                  <div id="departmentSettingsModal">
+                      <div id="departmentSettingsList">
+                        
+                      </div>
+                  </div>
+
+                  <div id="locationSettingsModal">
+                    <div id="locationSettingsList">
+                      
+                    </div>
+                </div>
+
+                  <div id="departmentAmendModal">
+                      <label for="departmentName">Department Name</label>
+                      <input placeholder="Department Name" id="departmentName" name="departmentName" type="text">
+                      <label for="departmentLocation">Department Location</label>
+                      <select id="departmentLocationSelector">
+                        <option value="" disabled selected>Select Location</option>
+                      </select>
+                  </div>
+
+                  <div id="locationAmendModal">
+                    <label for="locationName">Location Name</label>
+                    <input placeholder="location Name" id="locationName" name="locationName" type="text">
+                </div>
 
                   <div id="successModal">
                     <p id="successText">Employee added successfully!</p>
@@ -100,7 +133,15 @@
                   <button type="button" class="btn btn-success" id="editButton"><i class="material-icons" id="tick">done</i> Edit</button>                  
                   <button type="button" class="btn btn-success" id="formButton"><i class="material-icons" id="tick">done</i> Add</button>
                   <button type="button" class="btn btn-success" id="yesButton"><i class="material-icons" id="tick">done</i> Yes</button>
+                  <button type="button" class="btn btn-success" id="departmentEditButton"><i class="material-icons" id="tick">done</i> Edit</button>
+                  <button type="button" class="btn btn-success" id="submitDepartment"><i class="material-icons" id="tick">done</i> Add</button>
                   <button type="button" class="btn btn-danger" id="noButton"><i class="material-icons" id="cross">cancel</i> No</button>
+                  <button type="button" class="btn btn-success" id="yesDeleteDepartment"><i class="material-icons" id="tick">done</i> Yes</button>
+                  <button type="button" class="btn btn-danger" id="noDeleteDepartment"><i class="material-icons" id="cross">cancel</i> No</button>
+                  <button type="button" class="btn btn-success" id="yesDeleteLocation"><i class="material-icons" id="tick">done</i> Yes</button>
+                  <button type="button" class="btn btn-danger" id="noDeleteLocation"><i class="material-icons" id="cross">cancel</i> No</button>
+                  <button type="button" class="btn btn-success" id="locationEditButton"><i class="material-icons" id="tick">done</i> Edit</button>
+                  <button type="button" class="btn btn-success" id="submitLocation"><i class="material-icons" id="tick">done</i> Add</button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton">Close</button>
                 </div>
               </div>
@@ -133,19 +174,16 @@
         <!-- End of Topbar -->
 
         <div class="filterDiv">
-          <h2 class="filterHeader">Filters</h2>
           <form class="filters">
             <div class="fDiv">
-                <label for="departmentFilter" class="filterLabel">Department:</label>
                 <select class="filterSelect" name="departmentFilter" id="departmentFilter">
-                  <option value="" disabled selected>Select department</option>
+                  <option value="" disabled selected>Filter department</option>
                 </select>
             </div>
             
             <div class="fDiv">
-                <label for="locationFilter" class="filterLabel">Location:</label>
                 <select class="filterSelect" name="locationFilter" id="locationFilter">
-                  <option value="" disabled selected>Select location</option>
+                  <option value="" disabled selected>Filter location</option>
                 </select>
             </div>
  <!--          
@@ -165,16 +203,15 @@
                 </select>
             </div>
             --> 
+            <button type="button" class="btn btn-success resetButton">Reset Filters</button>
           </form>
-          <p class="resetText">Reset Filters</p>
+          
         </div>
 
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Company Directory</h1>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3 tableHeaderDiv">

@@ -221,7 +221,7 @@ table {
     display: block
 }
 
-#noButton, #yesButton #errorModal, #successModal, #employeeForm, #departmentSettingsModal, #settingsModal, #yesDeleteDepartment, #NoDeleteDepartment {
+#noButton, #yesButton #errorModal, #successModal, #employeeForm {
     display: none;
 }
 
@@ -240,12 +240,6 @@ table {
     flex-direction: column;
 }
 
-.settingsButtons {
-    width: 70%;
-    max-height: 4rem;
-    margin: auto auto;
-}
-
 #settingsModal {
     width: 100%;
 }
@@ -254,27 +248,25 @@ table {
     width: 50%;
     padding: 0.5em;
     margin: 0.5em auto;
-
 }
 
-#departmentSettingsList, #locationSettingsList {
+#departmentSettingsList {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     row-gap: 0.7em;
-    height: 70vh;
+    height: 75vh;
     overflow-y: scroll;
+    
 }
 
-
-.departmentInput li, .locationInput li {
-    display: flex;
-    align-items: center;
+.departmentInput li {
+    vertical-align: center;
     list-style-type: none;
     color: black;
 }
 
-.departmentInput, .locationInput {
+.departmentInput {
     width: 80%;
     margin: 0px auto;
     display: grid;
