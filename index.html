@@ -37,7 +37,7 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow topBar">
           <div class="mx-3 topBarHeader">Company Directory</div>
-          <div><button class="btn btn-light settingsButton"><i class="material-icons settingsCog" id="settingsCog">settings</i></button></div>
+          <div><button class="btn btn-light"><i class="material-icons settingsCog settingsButton" id="settingsCog">settings</i></button></div>
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline ml-md-3 my-2 my-md-0 mw-100 navbar-search searchBar">
             <div class="input-group">
@@ -123,6 +123,37 @@
                     <p id="errorText">An error has occured! Please try again</p>
                     <i class="material-icons" id="errorModalSymbol">error</i>
                   </div>
+                  
+                  <div id="infoModal">
+                    <table class="infoTable">
+                      <tbody>
+                          <tr>
+                            <td class="key">First Name: </td>
+                            <td id="infoFN"></td>
+                          </tr>
+
+                          <tr>
+                            <td class="key">Last Name: </td>
+                            <td id="infoLN"></td>
+                          </tr>
+
+                          <tr>
+                            <td class="key">Job Position: </td>
+                            <td id="infoJP"></td>
+                          </tr>
+
+                          <tr>
+                            <td class="key">Email: </td>
+                            <td id="infoEM"></td>
+                          </tr>
+                          
+                          <tr>
+                            <td class="key">Location</td>
+                            <td id="infoLO"></td>
+                          </tr>
+                      </tbody>
+                  </table>
+                  </div>
 
                   <div id="deleteModal">
                     <p id="deleteText"></p>
@@ -174,6 +205,9 @@
         <!-- End of Topbar -->
 
         <div class="filterDiv">
+          <div class="mobileHeader"><h6 class="filtersHeader">Filters</h6><button id="expandButton"><i class="material-icons" id="dropDownArrow">expand_more</i></button>  
+        </div>
+        <hr id="dividerhr">
           <form class="filters">
             <div class="fDiv">
                 <select class="filterSelect" name="departmentFilter" id="departmentFilter">
@@ -186,23 +220,15 @@
                   <option value="" disabled selected>Filter location</option>
                 </select>
             </div>
- <!--          
-            <div>
-                <label for="managerFilter">Manager</label>
-                <select class="filterSelect" name="managerFilter" id="managerFilter">
-                <option>Example 3</option>
-                <option>Example 2.2</option>
-                </select>
-            </div>
-            
-            <div>
-                <label for="positionFilter">Position</label>
-                <select class="filterSelect" name="positionFilter" id="positionFilter">
-                <option>Example 4</option>
-                <option>Example 2.1</option>
-                </select>
-            </div>
-            --> 
+         
+
+            <div class="fDiv">
+              <select class="filterSelect" name="positionFilter" id="positionFilter">
+                <option value="" disabled selected>Filter position</option>
+              </select>
+          </div>
+
+
             <button type="button" class="btn btn-success resetButton">Reset Filters</button>
           </form>
           
@@ -224,6 +250,8 @@
                   <thead>
                     <tr>
                       <th id="employeeIDHead">ID</th>
+                      <th id="infoButtonHead">More Info</th>
+                      <th id="fullNameHead">Name</th>
                       <th id="firstNameHead">First Name</th>
                       <th id="lastNameHead">Last Name</th>
                       <th id="positionHead">Position</th>

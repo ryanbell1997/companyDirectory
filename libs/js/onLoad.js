@@ -29,6 +29,7 @@ $(document).ready(() => {
         GetRows();
         DepartmentFilters();
         LocationFilters();
+        PositionFilters();
     }
 
     function tableHTMLCreator(json){
@@ -41,19 +42,24 @@ $(document).ready(() => {
             var location = json['data'][i]['location'];
             var department = json['data'][i]['department'];
             var employeeID =  json['data'][i]['id']
+            var fullName = firstName + " " + lastName;
 
             returnHTML += `
             <tr>
                 <td id="eID">${employeeID}</td>
+                <td id="inf"><i class="material-icons infoIcon" id=" ${employeeID}">info</i></td>
+                <td id="fuN">${fullName}</td>
                 <td id="fN">${firstName}</td>
                 <td id="lN">${lastName}</td>
                 <td id="jT">${jobTitle}</td>
                 <td id="eM"><i class="material-icons emailButton">email</i> ${email}</td>
                 <td id="lO">${location}</td>
                 <td id="dE">${department}</td>
-                <td class="buttonContainer editCell"><i class="material-icons editButton">edit</i></td>
-                <td class="buttonContainer deleteCell"><i class="material-icons deleteButton">delete</i></td>
+                <td class="buttonContainer"><i class="material-icons editButton editCell">edit</i></td>
+                <td class="buttonContainer"><i class="material-icons deleteButton deleteCell">delete</i></td>
             </tr>`
+
+            
         }
 
         return returnHTML;
@@ -90,13 +96,13 @@ $(document).ready(() => {
                     $('#departmentInput').html('');
                     for(let i = 0; i < result['data'].length; i++){
                         var option = `<option value=${result['data'][i]['id']}>${result['data'][i]['name']}</option>`
-                        var input = `<div class="departmentInput"><li>${result['data'][i]['name']}</li><button class="btn btn-warning settingsButtons editDepartmentButton"id=${result['data'][i]['id']}><i class="material-icons">edit</i></button><button class="btn btn-danger settingsButtons deleteDepartmentButton" id=${result['data'][i]['id']}><i class="material-icons">delete</i></button></div>`;
+                        var input = `<div class="departmentInput"><li>${result['data'][i]['name']}</li><button class="btn btn-warning settingsButtons"id=${result['data'][i]['id']}><i class="material-icons editDepartmentButton">edit</i></button><button class="btn btn-danger settingsButtons" id=${result['data'][i]['id']}><i class="material-icons deleteDepartmentButton">delete</i></button></div>`;
                         $('#departmentFilter').append(option);
                         $('#departmentInput').append(option);
                         $('#departmentSettingsList').append(input);
                     }
                     if(!$('.addDepartmentRow').length){
-                        $('#departmentSettingsList').prepend(`<div class="departmentInput addDepartmentRow"><li>Add New Department</li><button class="btn btn-success settingsButtons" id="addDepartment"><i class="material-icons">add</i></button></div>`)
+                        $('#departmentSettingsList').prepend(`<div class="departmentInput addDepartmentRow"><li>Add New Department</li><button class="btn btn-success settingsButtons"><i class="material-icons" id="addDepartment">add</i></button></div>`)
                     }
                     
                     $('#addDepartment').on('click', () => {
@@ -108,10 +114,10 @@ $(document).ready(() => {
                     })
                          
                     $('.editDepartmentButton').on('click', (e) => {
-                        let departmentInfo = getLJSON("departmentInfo");
-                        tempDepartmentID = $(e.target).attr("id");
-                        tempDepartmentName = FindIDName(tempDepartmentID, departmentInfo);
-                        tempDepartmentLocation = FindIDLocation(tempDepartmentID, departmentInfo);
+                        LocationFilters();
+                        tempDepartmentID = $(e.target).parent().attr("id");
+                        tempDepartmentName = FindIDName(tempDepartmentID, result);
+                        tempDepartmentLocation = FindIDLocation(tempDepartmentID, result);
 
                         $('#departmentName').val(tempDepartmentName);
                         $('#departmentLocationSelector').val(tempDepartmentLocation);
@@ -122,9 +128,8 @@ $(document).ready(() => {
                     })
 
                     $('.deleteDepartmentButton').on('click', (e) => {
-                        let departmentInfo = getLJSON("departmentInfo");
-                        tempDepartmentID = $(e.target).attr("id");
-                        tempDepartmentName = FindIDName(tempDepartmentID, departmentInfo);
+                        tempDepartmentID = $(e.target).parent().attr("id");
+                        tempDepartmentName = FindIDName(tempDepartmentID, result);
                         HideModalFeatures();
 
                         $('#deleteModal').show();
@@ -156,19 +161,18 @@ $(document).ready(() => {
             data: {},
                 success: (result) => {
                     setLJSON("locationInfo", result);
-                    let locationData = getLJSON("locationInfo", result);
                     $('#locationSettingsList').html('');
-
+                    $('#departmentLocationSelector').html('');
                     for(let i = 0; i < result['data'].length; i++){
                         var option = `<option value=${result['data'][i]['id']}>${result['data'][i]['name']}</option>`
-                        var input = `<div class="locationInput"><li>${result['data'][i]['name']}</li><button class="btn btn-warning settingsButtons editLocationButton"id=${result['data'][i]['id']}><i class="material-icons">edit</i></button><button class="btn btn-danger settingsButtons deleteLocationButton" id=${result['data'][i]['id']}><i class="material-icons">delete</i></button></div>`;
+                        var input = `<div class="locationInput"><li>${result['data'][i]['name']}</li><button class="btn btn-warning settingsButtons"id=${result['data'][i]['id']}><i class="material-icons editLocationButton">edit</i></button><button class="btn btn-danger settingsButtons " id=${result['data'][i]['id']}><i class="material-icons deleteLocationButton">delete</i></button></div>`;
 
                         $('#locationFilter').append(option);
                         $('#departmentLocationSelector').append(option);
                         $('#locationSettingsList').append(input);
                     }
                     if(!$('.addLocationRow').length){
-                        $('#locationSettingsList').prepend(`<div class="locationInput addLocationRow"><li>Add New Department</li><button class="btn btn-success settingsButtons" id="addLocation"><i class="material-icons">add</i></button></div>`)
+                        $('#locationSettingsList').prepend(`<div class="locationInput addLocationRow"><li>Add New Location</li><button class="btn btn-success settingsButtons"><i class="material-icons" id="addLocation">add</i></button></div>`)
                     }
 
                     $('#addLocation').on('click', () => {
@@ -179,8 +183,9 @@ $(document).ready(() => {
                     });
 
                     $('.editLocationButton').on('click', (e) => {
+                        HideModalFeatures();
                         let locationInfo = getLJSON("locationInfo");
-                        tempLocationID = $(e.target).attr("id");;
+                        tempLocationID = $(e.target).parent().attr("id");;
                         tempLocationName = FindIDName(tempLocationID, locationInfo)
 
                         $('#locationName').val(tempLocationName);
@@ -192,7 +197,8 @@ $(document).ready(() => {
 
                     $('.deleteLocationButton').on('click', (e) => {
                         let locationInfo = getLJSON("locationInfo");
-                        tempLocationID = $(e.target).attr("id");
+                        tempLocationID = $(e.target).parent().attr("id");
+                        console.log($(e.target).parent().parent());
                         tempLocationName = FindIDName(tempLocationID, locationInfo);
                         HideModalFeatures();
 
@@ -214,6 +220,26 @@ $(document).ready(() => {
         })
     }
 
+    function PositionFilters(){
+        $('#positionFilter').html('');
+        $('#positionFilter').append(`<option value="" disabled selected>Filter position</option>`)
+        GetRows();
+        let data = getLJSON('directoryRows');
+        let positionArray = [];
+        for(let i = 0; i < data['data'].length; i++){
+            if(!positionArray.includes(data['data'][i]['jobTitle'])){
+                positionArray.push(data['data'][i]['jobTitle']);
+            } else {
+                continue;
+            }
+        }
+        positionArray = positionArray.sort();
+        for(let i = 0; i < positionArray.length; i++){
+            var option = `<option value="${positionArray[i]}">${positionArray[i]}</option>`
+            $('#positionFilter').append(option);
+        }
+    }
+
     function FindIDName(id, json){
         for(let i = 0; i < json['data'].length; i++){
             if(id == json['data'][i]['id']){
@@ -223,9 +249,9 @@ $(document).ready(() => {
     }
 
     function FindIDLocation(id, json){
-        for(let i = 0; i< json['data'].lenghth; i++) {
+        for(let i = 0; i< json['data'].length; i++) {
             if(id == json['data'][i]['id']){
-                return json['data'][i]['name'];
+                return json['data'][i]['locationID'];
             }
         }
     }
@@ -298,6 +324,10 @@ $(document).ready(() => {
         }
     }
 
+    function ValidateEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
 
     //Caching Functions
     function setLJSON(storageName,item) {
@@ -331,6 +361,7 @@ $(document).ready(() => {
         $('#noDeleteLocation').hide();
         $('#locationEditButton').hide();
         $('#submitLocation').hide();
+        $('#infoModal').hide();
     }
 
     function PrepareAddForm(){
@@ -474,7 +505,8 @@ $(document).ready(() => {
     }
 
     //Event Listener
-    $(".resetText").on('click', () => {
+
+    $(".resetButton").on('click', () => {
         $(".filterSelect").val("");
         ClearDirectory();
         $('#directory').append(tableHTMLCreator(getLJSON('directoryRows')));
@@ -488,7 +520,7 @@ $(document).ready(() => {
         AddEmployee();
         $('#formButton').hide();
         $('#closeButton').hide();
-        GetRow();
+        GetRows();
     });
 
     $('.close').on('click', () => {
@@ -547,8 +579,7 @@ $(document).ready(() => {
 
     //This event gets the event, creates an array that is the row and its children, and then assigns it temp variables for prepopulating the form.
     $('#directory').on('click', '.editCell', (e) => {    
-        let parentInfo = $(e.target).parent().children().toArray();
-        console.log(parentInfo);
+        let parentInfo = $(e.target).parent().parent().children().toArray();
         SetTempVars(parentInfo);
 
         const tagIndex = tempEmail.indexOf(' ');
@@ -557,9 +588,13 @@ $(document).ready(() => {
 
         PrepareEditForm();
     })
-   
-    //TODO Finish Update by adding an "Are you sure page"!
+
     $('#editButton').on('click', () => {
+        if(!ValidateEmail($('#emailInput').val())){
+            alert("Please use a valid email address!");
+            return;
+        }
+
         FormChangeChecker();
         $.ajax({
             url: 'libs/php/editEmployee.php',
@@ -579,6 +614,7 @@ $(document).ready(() => {
                 $('#successModal').show();
                 $('#successText').html(`<p>${firstNameHeader} ${lastNameHeader} has been successfully updated!`);
                 GetRows();
+                PositionFilters
                 setTimeout(() => {
                     $('.modal').fadeToggle();
 
@@ -593,16 +629,16 @@ $(document).ready(() => {
     })
 
     $('#directory').on('click', '.deleteCell', (e) => {
-        let parentInfo = $(e.target).parent().children().toArray();
+        let parentInfo = $(e.target).parent().parent().children().toArray();
+        console.log(parentInfo);
         tempDeleteID = parentInfo[0]['innerHTML'];
-        tempFirstName = parentInfo[1]['innerHTML'];
-        tempLastName =  parentInfo[2]['innerHTML'];
+        tempFullName = parentInfo[2]['innerHTML'];
 
         PrepareDeleteForm();
         $('.modal').fadeToggle();
         $('#deleteCompleteSymbol').hide();
         $('#deleteModal').show();
-        $('#deleteText').html(`Are you sure you would like to delete <strong>${tempFirstName} ${tempLastName}</strong> from the directory?`);
+        $('#deleteText').html(`Are you sure you would like to delete <strong>${tempFullName}</strong> from the directory?`);
     })
     
     //press yes to delete button
@@ -819,7 +855,7 @@ $(document).ready(() => {
             },
             success: (result) => {
                 $('#locationAmendModal').hide();
-                $('#submitlocation').hide(); 
+                $('#submitLocation').hide(); 
                 LocationFilters();
                 $('#successModal').show();
                 $('#successText').text("Location successfully added!");
@@ -835,47 +871,69 @@ $(document).ready(() => {
         })
     })
 
-
-    /* DO NOT HAVE THESE FILTERS AS OF RIGHT NOW.
-    $("#managerFilter").on('change', () => {
-        if($("managerFilter").val() == ""){
-            return;
+    $('#dropDownArrow').on('click', () => {
+        $('.filters').slideToggle();
+        if($('#dropDownArrow').text() == "expand_more"){
+            $('#dropDownArrow').text("expand_less");
         } else {
-            $.ajax({
-                url: "libs/php/managerFilter.php",
-                method: "POST",
-                data: {
-                    department: $("#managerFilter").val()
-                },
-                success: (result) => {
-                    console.log(result);
-                }, 
-                error: (errorText) => {
-                    console.log(errorText);
-                } 
-            })
+            $('#dropDownArrow').text("expand_more");
         }
-    });
+    })
 
+    $('#directory').on('click', '.infoIcon', (e) => {
+        let parentInfo = $(e.target).parent().parent().children().toArray();
+        HideModalFeatures();
+        $('.modal').fadeToggle()
+        $('.modal-title').text("Employee Info")
+        $('#infoModal').show();
+        let tempEmail = parentInfo[6]['innerText']; 
+        const tagIndex = tempEmail.indexOf(' ');
+        tempEmail = tempEmail.slice(tagIndex);
+
+        $('#infoFN').html(parentInfo[3]['innerText']);
+        $('#infoLN').html(parentInfo[4]['innerText']);
+        $('#infoJP').html(parentInfo[5]['innerText']);
+        $('#infoEM').html(tempEmail);
+        $('#infoLO').html(parentInfo[7]['innerText']);
+    })
+    
     $("#positionFilter").on('change', () => {
-        if($("positionFilter").val() == ""){
-            return;
-        } else {
-            $.ajax({
-                url: "libs/php/positionFilter.php",
-                method: "POST",
-                data: {
-                    department: $("#positionFilter").val()
-                },
-                success: (result) => {
-                    console.log(result);
-                }, 
-                error: (errorText) => {
-                    console.log(errorText);
-                } 
-            })
+        let data = getLJSON('directoryRows');
+        let rowArray = [];
+        for(let i = 0; i < data['data'].length; i++){
+            if(data['data'][i]['jobTitle'] == $('#positionFilter').val()){
+                rowArray.push(data['data'][i]);
+            };
+        }
+
+        console.log(rowArray);  
+
+        ClearDirectory();
+        for(let i = 0; i < rowArray.length; i++) {
+            var firstName = rowArray[i]['firstName'];
+            var lastName = rowArray[i]['lastName'];
+            var jobTitle = rowArray[i]['jobTitle'];
+            var email = rowArray[i]['email'];
+            var location = rowArray[i]['location'];
+            var department = rowArray[i]['department'];
+            var employeeID =  rowArray[i]['id']
+            var fullName = firstName + " " + lastName;
+
+            $('#directory').append(`<tr>
+                <td id="eID">${employeeID}</td>
+                <td id="inf"><i class="material-icons infoIcon" id=" ${employeeID}">info</i></td>
+                <td id="fuN">${fullName}</td>
+                <td id="fN">${firstName}</td>
+                <td id="lN">${lastName}</td>
+                <td id="jT">${jobTitle}</td>
+                <td id="eM"><i class="material-icons emailButton">email</i> ${email}</td>
+                <td id="lO">${location}</td>
+                <td id="dE">${department}</td>
+                <td class="buttonContainer"><i class="material-icons editButton editCell">edit</i></td>
+                <td class="buttonContainer"><i class="material-icons deleteButton deleteCell">delete</i></td>
+            </tr>`);
         }
     });
-*/
+
     main();
 })

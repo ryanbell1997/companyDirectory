@@ -1,3 +1,7 @@
+
+
+
+
 /*Filter div styles*/
 .filterDiv {
     width: 80%;
@@ -7,8 +11,23 @@
     box-shadow: 0px 0px 5px 0px;
 }
 
+@media only screen and (min-width: 481px){
+    #fuN, #fullNameHead, #inf, .mobileHeader, #infoButtonHead {
+        display: none;
+    }
+
+    .filters {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 1.4em;
+    }
+}
+
+
 .fDiv {
-    width: 40%;
+    width: 20%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -18,17 +37,9 @@
     margin: 0px 0.5em 0px 0px;
 }
 
-.filters {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 1.4em;
-}
-
 .filterSelect {
     padding: 0.4em;
-    width: 50%;
+    width: 80%;
 }
 
 .filterHeader {
@@ -67,6 +78,7 @@
 
 .input-group {
     float: right;
+    width: 100%!important;
 }
 
 label {
@@ -182,13 +194,6 @@ table {
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     row-gap: 1rem;
 }
-
-@media only screen and (max-width: 480px){
-    .formContainer {
-        grid-template-columns: 30% 70%;
-    }
-}
-
 .formLabel {
     padding-right: 0.4em;
     text-align: right;
@@ -279,4 +284,104 @@ table {
     margin: 0px auto;
     display: grid;
     grid-template-columns:2fr 1fr 1fr;
+}
+
+#addLocation, #addDepartment, .deleteDepartmentButton, .editDepartmentButton, .deleteLocationButton, .editLocationButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoTable {
+    width: 90%;
+    margin: 0px auto;
+    font-size: 100%;
+}
+
+.infoTable td {
+    padding: 0.2em 0.1em;
+}
+
+.infoTable .key {
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 480px){
+    .filters {
+        display: none;
+        padding: 1em;
+    }
+
+    .fDiv {
+        width: 90%;
+        padding: 0.6em;
+        margin: 0px auto;
+    }
+
+    #departmentFilter, #locationFilter, #positionFilter {
+        width: 90%;
+    }
+
+    .resetButton {
+        display: flex;
+        justify-content: center;
+        width: 50%;
+        margin: 0px auto;
+        
+    }
+
+    .mobileHeader {
+        display: flex;
+        align-items: center;
+        width: 90%;
+        margin: 0px auto;
+    }
+
+    .filtersHeader {
+        display: flex!important;
+        align-items: center;
+        padding-left: 1em;
+        padding-top: 0.5em;
+        font-weight: bold;
+        width: 90%;
+        color: darkslategray;
+    }
+
+    #dividerhr {
+        margin-top: 0.2rem;
+        margin-bottom: 0.2rem;
+    }
+
+    #expandButton {
+        background-color: white;
+        border-radius: 50%;
+        border: 0px;
+        display: flex;
+        align-items: center;
+        width: 10%;
+        height: auto;
+        justify-content: center;
+    }
+
+    #employeeIDHead, #positionHead, #emailHead, #officeHead, #departmentHead, #firstNameHead, #lastNameHead, #eID, #jT, #eM, #lO, #dE, #fN, #lN {
+        display: none;
+    } 
+
+    table {
+        font-size: 80%;
+    }
+
+    .infoIcon {
+        color: #57b7d4;
+        font-size: 250%;
+    }
+
+    .container-fluid {
+        height: 75vh;
+    }
+
+    .table-responsive {
+        height: 60vh;
+    }
+
 }
