@@ -72,14 +72,10 @@ $(document).ready(() => {
             dataType: "json",
             data: {},
                 success: (result) => {
-                    console.log(result);
                         $('#directory').html('');
                         $('#directory').append(tableHTMLCreator(result));
                         setLJSON('directoryRows', result);            
             }, error: (jqXHR, textStatus, errorThrown) => {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
             }
         });
     }
@@ -146,9 +142,7 @@ $(document).ready(() => {
                     maxDepartmentID = Number(result['data'][result['data'].length - 1]['id']) + 1;
                     
                 }, error: (jqXHR, textStatus, errorThrown) => {
-                    console.log(jqXHR);
-                    console.log(textStatus);
-                    console.log(errorThrown);
+
                 }
         })
     }
@@ -198,7 +192,6 @@ $(document).ready(() => {
                     $('.deleteLocationButton').on('click', (e) => {
                         let locationInfo = getLJSON("locationInfo");
                         tempLocationID = $(e.target).parent().attr("id");
-                        console.log($(e.target).parent().parent());
                         tempLocationName = FindIDName(tempLocationID, locationInfo);
                         HideModalFeatures();
 
@@ -213,9 +206,7 @@ $(document).ready(() => {
                     })
                     
                 }, error: (jqXHR, textStatus, errorThrown) => {
-                    console.log(jqXHR);
-                    console.log(textStatus);
-                    console.log(errorThrown);
+
                 }
         })
     }
@@ -287,9 +278,7 @@ $(document).ready(() => {
                 }
             },
             error: (jqXHR, textStatus, errorThrown) => {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
+
             }
         })
     }
@@ -542,14 +531,11 @@ $(document).ready(() => {
                     id: $("#departmentFilter").val()
                 },
                 success: (result) => {
-                    console.log(result)
                     ClearDirectory();
                     $('#directory').append(tableHTMLCreator(result));
                 }, 
                 error: (jqXHR, textStatus, errorThrown) => {
-                    console.log(jqXHR);
-                    console.log(textStatus);
-                    console.log(errorThrown);
+
                 } 
             })
         }
@@ -566,12 +552,10 @@ $(document).ready(() => {
                     id: $("#locationFilter").val()
                 },
                 success: (result) => {
-                    console.log(result)
                     ClearDirectory();
                     $('#directory').append(tableHTMLCreator(result));
                 }, 
                 error: (errorText) => {
-                    console.log(errorText);
                 } 
             })
         }
@@ -621,16 +605,13 @@ $(document).ready(() => {
                 }, 2500);
             },
             error: (jqXHR, textStatus, errorThrown) => {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
+
             }
         });
     })
 
     $('#directory').on('click', '.deleteCell', (e) => {
         let parentInfo = $(e.target).parent().parent().children().toArray();
-        console.log(parentInfo);
         tempDeleteID = parentInfo[0]['innerHTML'];
         tempFullName = parentInfo[2]['innerHTML'];
 
@@ -661,9 +642,7 @@ $(document).ready(() => {
                 GetRows();
 
             }, error: (jqXHR, textStatus, errorThrown) => {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
+
             }
         })
     })
@@ -711,9 +690,7 @@ $(document).ready(() => {
                     $('#departmentSettingsModal').show();
                 }, 2500);
             }, error: (jqXHR, textStatus, errorThrown) => {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
+
             }
         })
     })
@@ -741,9 +718,7 @@ $(document).ready(() => {
                     $('#departmentSettingsModal').show();
                 }, 2500);
             }, error: (jqXHR, textStatus, errorThrown) => {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
+
             }
         })
     })
@@ -774,9 +749,7 @@ $(document).ready(() => {
                 }, 2500);
             },
             error: (jqXHR, textStatus, errorThrown) => {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
+
             }
         })
     })
@@ -807,9 +780,7 @@ $(document).ready(() => {
                     $('#locationSettingsModal').show();
                 }, 2500);
             }, error: (jqXHR, textStatus, errorThrown) => {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
+
             }
         })
     })
@@ -838,9 +809,7 @@ $(document).ready(() => {
                 }, 2500);
             },
             error: (jqXHR, textStatus, errorThrown) => {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
+
             }
         })
     })
@@ -864,9 +833,7 @@ $(document).ready(() => {
                     $('#locationSettingsModal').show();
                 }, 2500);
             }, error: (jqXHR, textStatus, errorThrown) => {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
+
             }
         })
     })
@@ -905,8 +872,6 @@ $(document).ready(() => {
                 rowArray.push(data['data'][i]);
             };
         }
-
-        console.log(rowArray);  
 
         ClearDirectory();
         for(let i = 0; i < rowArray.length; i++) {

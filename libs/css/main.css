@@ -377,11 +377,11 @@ table {
     }
 
     .container-fluid {
-        height: 75vh;
+        height: 55vh;
     }
 
     .table-responsive {
-        height: 60vh;
+        height: 43vh;
     }
 
 }
